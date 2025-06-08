@@ -1,0 +1,94 @@
+# Định nghĩa phiên bản của Docker Compose file format
+# version: '3.8' # Bạn có thể bỏ comment dòng này nếu muốn chỉ định phiên bản cụ thể
+
+# Khối định nghĩa các services (containers) sẽ được quản lý bởi Docker Compose
+services:
+  # Định nghĩa service cho ứng dụng 'phimmoi'
+  phimmoi:
+    # Định nghĩa tên container
+    # container_name: phimmoi
+
+    # Cấu hình cách build image cho service này
+    build:
+      # Đường dẫn đến thư mục chứa Dockerfile và mã nguồn (build context)
+      # '.' nghĩa là thư mục hiện tại, nơi chứa file docker-compose.yaml này
+      context: .
+      # Đường dẫn tương đối (so với context) đến Dockerfile sẽ được sử dụng
+      dockerfile: ./apps/phimmoi/Dockerfile
+      # Chỉ định target build stage từ Dockerfile (nếu là multi-stage build)
+      # Điều này hữu ích để sử dụng stage 'development' với hot-reloading
+      target: development
+      
+
+    # Chỉ định command để chạy khi container được khởi động
+    command: pnpm start:dev phimmoi
+    env_file:
+      - ./apps/phimmoi/.env
+    # Ánh xạ cổng giữa máy host và container
+    ports:
+      # Ánh xạ cổng 3000 của máy host tới cổng 3000 của container
+      - "3000:3000"
+
+    # Định nghĩa các biến môi trường cho container
+    # environment:
+    #   # Thiết lập môi trường Node.js là 'development'
+    #   # Bạn có thể thêm các biến môi trường khác ở đây, ví dụ MONGO_URI
+    #   # - MONGO_URI=mongodb://mongo:27017/phimhay_dev
+    #   - NODE_ENV=development
+
+    # Mount volumes giữa máy host và container
+    volumes:
+      # Mount thư mục hiện tại (chứa mã nguồn) của máy host vào /usr/src/app trong container
+      # Điều này cho phép hot-reloading: thay đổi code trên host sẽ được phản ánh ngay trong container
+      # Lưu ý: Điều này thường chỉ dùng cho môi trường development.
+      # Trong production, code thường được COPY vào image lúc build.
+      - .:/usr/src/app
+      - /usr/src/app/node_modules 
+      # Prevent host node_modules from overwriting container's
+      # Bạn có thể thêm một volume để bỏ qua node_modules, tránh ghi đè node_modules trong container
+      # nếu bạn chạy npm install trên host và trong container riêng biệt.
+      # - /usr/src/app/node_modules
+
+    # Khai báo các service phụ thuộc mà service này cần để khởi chạy đúng
+    # depends_on:
+    #   # Ví dụ: service này cần service 'mongo' để khởi chạy
+    #   - mongo
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: pnpm start:dev auth
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./apps/auth/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+  # Định nghĩa service cho cơ sở dữ liệu MongoDB
+  mongo:
+    logging:
+      driver: "none"
+    command: mongod --quiet
+    # Định nghĩa tên container
+    # container_name: mongo
+
+    # Sử dụng image 'mongo' phiên bản 'latest' từ Docker Hub
+    image: mongo:latest
+
+    # Ánh xạ cổng giữa máy host và container
+    # ports:
+    #   # Ánh xạ cổng 27017 của máy host tới cổng 27017 của container (cổng mặc định của MongoDB)
+    #   - "27017:27017"
+    
+    # Mount named volume 'mongo_data' vào thư mục /data/db trong container
+    # /data/db là nơi MongoDB lưu trữ dữ liệu của nó
+    # Sử dụng named volume giúp dữ liệu được lưu trữ bền vững ngay cả khi container bị xóa và tạo lại
+    # volumes:
+    #   - mongo_data:/data/db
+
+# volumes:
+#   # Định nghĩa named volume 'mongo_data'
+#   # Nếu không có driver cụ thể, Docker sẽ sử dụng driver mặc định (thường là 'local')
+#   mongo_data:
