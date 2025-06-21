@@ -16,10 +16,11 @@ async function bootstrap() {
       port: configService.get("TCP_PORT"),
     },
   });
+  // Use cookie-parser middleware to parse cookies from incoming requests.
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useLogger(app.get(Logger));
   app.startAllMicroservices();
-  await app.listen(configService.getOrThrow("HTTP_PORT"));
+  await app.listen(configService.get("PORT") || 3001);
 }
 bootstrap();

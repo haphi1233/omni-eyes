@@ -11,15 +11,23 @@ import {
 import { PhimmoiService } from "./phimmoi.service";
 import { CreatePhimmoiDto } from "./dto/create-phimmoi.dto";
 import { UpdatePhimmoiDto } from "./dto/update-phimmoi.dto";
-import { JwtAuthGuard } from "@app/common";
+import { JwtAuthGuard, UserDto } from "@app/common";
+import { CurrentUser } from "@app/common";
 
 @Controller("phimmoi")
 export class PhimmoiController {
   constructor(private readonly phimmoiService: PhimmoiService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createPhimmoiDto: CreatePhimmoiDto) {
-    return this.phimmoiService.create(createPhimmoiDto);
+  create(
+    @Body() createPhimmoiDto: CreatePhimmoiDto,
+    @CurrentUser() user: UserDto,
+  ) {
+    return this.phimmoiService.create({
+      ...createPhimmoiDto,
+      authorId: user._id,
+    });
   }
 
   @Get()

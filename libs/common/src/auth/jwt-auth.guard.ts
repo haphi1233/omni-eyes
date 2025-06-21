@@ -6,11 +6,10 @@ import {
 } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { map, Observable, tap } from "rxjs";
-import { AUTH_SERVICE } from "@app/common";
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(@Inject(AUTH_SERVICE) private readonly authClient: ClientProxy) {}
+  constructor(@Inject("auth") private readonly authClient: ClientProxy) {}
 
   canActivate(
     context: ExecutionContext,

@@ -3,12 +3,9 @@ import { PhimmoiModule } from "./phimmoi.module";
 import { Logger } from "nestjs-pino";
 import { ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import * as cookieParser from "cookie-parser";
-
 async function bootstrap() {
   const app = await NestFactory.create(PhimmoiModule);
   const configService = app.get(ConfigService);
-  app.use(cookieParser());
   app.useGlobalPipes(
     new ValidationPipe({
       // Chỉ cho phép các thuộc tính đã được định nghĩa trong DTO
@@ -24,6 +21,6 @@ async function bootstrap() {
     }),
   );
   app.useLogger(app.get(Logger));
-  await app.listen(configService.getOrThrow("HTTP_PORT"));
+  await app.listen(configService.get("HTTP_PORT") || 3000);
 }
 bootstrap();

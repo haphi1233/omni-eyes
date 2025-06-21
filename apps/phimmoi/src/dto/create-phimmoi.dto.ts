@@ -25,6 +25,10 @@ export class CreatePhimmoiDto {
   @IsString()
   @IsNotEmpty()
   type: string;
+
+  @IsString()
+  @IsNotEmpty()
+  authorId: string;
 }
 
 export const mockCreatePhimmoiDto = {

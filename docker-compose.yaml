@@ -18,7 +18,6 @@ services:
       # Chỉ định target build stage từ Dockerfile (nếu là multi-stage build)
       # Điều này hữu ích để sử dụng stage 'development' với hot-reloading
       target: development
-      
 
     # Chỉ định command để chạy khi container được khởi động
     command: pnpm start:dev phimmoi
@@ -65,8 +64,31 @@ services:
       - ./apps/auth/.env
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
-  # Định nghĩa service cho cơ sở dữ liệu MongoDB
+      - /usr/src/app/node_modules 
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+    command: pnpm start:dev payments
+    ports:
+      - "3003:3003"
+    env_file:
+      - ./apps/payments/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules 
+  notifications:
+    build:
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: development
+    command: pnpm start:dev notifications
+    env_file:
+      - ./apps/notifications/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules 
   mongo:
     logging:
       driver: "none"
@@ -81,13 +103,12 @@ services:
     # ports:
     #   # Ánh xạ cổng 27017 của máy host tới cổng 27017 của container (cổng mặc định của MongoDB)
     #   - "27017:27017"
-    
+
     # Mount named volume 'mongo_data' vào thư mục /data/db trong container
     # /data/db là nơi MongoDB lưu trữ dữ liệu của nó
     # Sử dụng named volume giúp dữ liệu được lưu trữ bền vững ngay cả khi container bị xóa và tạo lại
     # volumes:
     #   - mongo_data:/data/db
-
 # volumes:
 #   # Định nghĩa named volume 'mongo_data'
 #   # Nếu không có driver cụ thể, Docker sẽ sử dụng driver mặc định (thường là 'local')
