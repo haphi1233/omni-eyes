@@ -8,12 +8,11 @@ COPY tsconfig.json tsconfig.json
 COPY nest-cli.json nest-cli.json
 
 RUN npm install -g pnpm
-
 RUN pnpm install
-
 
 COPY apps/phimmoi apps/phimmoi
 COPY libs libs 
+
 
 RUN pnpm run build phimmoi
 
