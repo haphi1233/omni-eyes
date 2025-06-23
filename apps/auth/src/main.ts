@@ -21,6 +21,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useLogger(app.get(Logger));
   app.startAllMicroservices();
-  await app.listen(configService.get("PORT") || 3001);
+  await app.listen(configService.get("HTTP_PORT") || 3001);
 }
 bootstrap();
