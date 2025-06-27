@@ -66,3 +66,6 @@ steps:
         "push",
         "asia-east2-docker.pkg.dev/triple-shift-463315-e6/notifications/production",
       ]
+serviceAccount: "projects/triple-shift-463315-e6/serviceAccounts/triple-shift-463315-e6@triple-shift-463315-e6.iam.gserviceaccount.com"
+options:
+  logging: CLOUD_LOGGING_ONLY
