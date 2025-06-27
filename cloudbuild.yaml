@@ -1,0 +1,68 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "asia-east2-docker.pkg.dev/triple-shift-463315-e6/auth/production",
+        "-f",
+        "apps/auth/Dockerfile",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "asia-east2-docker.pkg.dev/triple-shift-463315-e6/auth/production",
+      ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "asia-east2-docker.pkg.dev/triple-shift-463315-e6/phimmoi/production",
+        "-f",
+        "apps/phimmoi/Dockerfile",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "asia-east2-docker.pkg.dev/triple-shift-463315-e6/phimmoi/production",
+      ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "asia-east2-docker.pkg.dev/triple-shift-463315-e6/payments/production",
+        "-f",
+        "apps/payments/Dockerfile",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "asia-east2-docker.pkg.dev/triple-shift-463315-e6/payments/production",
+      ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "asia-east2-docker.pkg.dev/triple-shift-463315-e6/notifications/production",
+        "-f",
+        "apps/notifications/Dockerfile",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "asia-east2-docker.pkg.dev/triple-shift-463315-e6/notifications/production",
+      ]

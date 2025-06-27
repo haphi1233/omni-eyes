@@ -52,6 +52,20 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
       - /usr/src/app/apps/notifications/node_modules
+  area:
+    build:
+      context: .
+      dockerfile: ./apps/area/Dockerfile
+      target: development
+    command: pnpm start:dev area
+    ports:
+      - "9002:9002"
+    env_file:
+      - ./apps/area/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/apps/area/node_modules
   mongo:
     logging:
       driver: "none"

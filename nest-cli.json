@@ -8,6 +8,15 @@
     "tsConfigPath": "apps/phimmoi/tsconfig.app.json"
   },
   "projects": {
+    "area": {
+      "type": "application",
+      "root": "apps/area",
+      "entryFile": "main",
+      "sourceRoot": "apps/area/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/area/tsconfig.app.json"
+      }
+    },
     "auth": {
       "type": "application",
       "root": "apps/auth",
