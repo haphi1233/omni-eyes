@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: phimmoi
+  name: phimmoi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phimmoi
+  template:
+    metadata:
+      labels:
+        app: phimmoi
+    spec:
+      containers:
+        - image: asia-east2-docker.pkg.dev/triple-shift-463315-e6/phimmoi/production
+          name: phimmoi
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: connectionString
+            - name: AUTH_PORT
+              value: "3001"
+            - name: AUTH_HOST
+              value: "auth"
+            - name: NOTIFICATIONS_PORT
+              value: "3000"
+            - name: NOTIFICATIONS_HOST
+              value: "notifications"
+            - name: HTTP_PORT
+              value: "3003" 
+          ports:
+            - containerPort: 3003
+
+            

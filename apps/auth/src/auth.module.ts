@@ -18,6 +18,8 @@ import { JwtStrategy } from "./strategies/jwt.strategy";
         MONGO_URI: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRES_IN: Joi.string().required(),
+        HTTP_PORT: Joi.string().required(),
+        TCP_PORT: Joi.string().required(),
       }),
     }),
     JwtModule.registerAsync({
