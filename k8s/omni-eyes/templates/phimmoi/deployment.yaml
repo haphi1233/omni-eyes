@@ -24,9 +24,9 @@ spec:
                   name: mongodb
                   key: connectionString
             - name: AUTH_PORT
-              value: "3001"
+              value: "3002"
             - name: AUTH_HOST
-              value: "auth"
+              value: "auth-tcp"
             - name: NOTIFICATIONS_PORT
               value: "3000"
             - name: NOTIFICATIONS_HOST
