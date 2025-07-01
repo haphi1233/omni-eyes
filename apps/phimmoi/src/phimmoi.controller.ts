@@ -31,7 +31,6 @@ export class PhimmoiController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.phimmoiService.findAll();
   }
@@ -41,11 +40,13 @@ export class PhimmoiController {
     return this.phimmoiService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
   update(@Param("id") id: string, @Body() updatePhimmoiDto: UpdatePhimmoiDto) {
     return this.phimmoiService.update(id, updatePhimmoiDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.phimmoiService.remove(id);
