@@ -26,6 +26,7 @@ import { PhimmoiDocument, PhimmoiSchema } from "./shcema/phimmoi.schema";
         AUTH_PORT: Joi.number().required(),
         NOTIFICATIONS_HOST: Joi.string().required(),
         NOTIFICATIONS_PORT: Joi.number().required(),
+        HTTP_PORT: Joi.number().required(),
       }),
     }),
     LoggerModule,
