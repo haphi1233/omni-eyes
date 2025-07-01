@@ -6,7 +6,7 @@ services:
       target: development
     command: pnpm start:dev auth
     ports:
-      - "9001:9001"
+      - "3001:3001"
     env_file:
       - ./apps/auth/.env
     volumes:
@@ -22,7 +22,7 @@ services:
     env_file:
       - ./apps/phimmoi/.env
     ports:
-      - "9000:9000"
+      - "3003:3003"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -59,7 +59,7 @@ services:
       target: development
     command: pnpm start:dev area
     ports:
-      - "9002:9002"
+      - "3005:3005"
     env_file:
       - ./apps/area/.env
     volumes:
