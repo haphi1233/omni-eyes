@@ -18,10 +18,6 @@ export class JwtAuthGuard implements CanActivate {
       context.switchToHttp().getRequest().cookies?.Authentication ||
       context.switchToHttp().getRequest().headers?.cookie?.split("=")[1] ||  // ??? Cân tìm hiểu format của cookie
       context.switchToHttp().getRequest().headers?.Authentication;
-
-    console.log(jwt);
-    console.log(context.switchToHttp().getRequest().headers);
-    console.log(context.switchToHttp().getRequest().cookies);
     
     if (!jwt) {
       return false;
