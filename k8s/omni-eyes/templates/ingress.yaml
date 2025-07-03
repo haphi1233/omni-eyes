@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: omni-eyes
+spec: 
+  rules:
+    - http:
+        paths:
+          - path: /auth/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: auth-http
+                port:
+                  number: 3001
+          - path: /phimmoi/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: phimmoi
+                port:
+                  number: 3003

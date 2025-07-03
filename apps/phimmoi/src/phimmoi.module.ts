@@ -12,8 +12,10 @@ import { PhimmoiController } from "./phimmoi.controller";
 import { PhimmoiRepository } from "./phimmoi.repository";
 import { PhimmoiService } from "./phimmoi.service";
 import { PhimmoiDocument, PhimmoiSchema } from "./shcema/phimmoi.schema";
+import { HealthCheckModule } from "@app/common";
 @Module({
   imports: [
+    HealthCheckModule,
     DatabaseModule,
     DatabaseModule.forFeature([
       { name: PhimmoiDocument.name, schema: PhimmoiSchema },

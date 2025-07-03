@@ -8,10 +8,12 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import * as Joi from "joi";
 import { LocalStrategy } from "./strategies/local.strategy";
 import { JwtStrategy } from "./strategies/jwt.strategy";
+import { HealthCheckModule } from "@app/common";
 @Module({
   imports: [
     UserModule,
     LoggerModule,
+    HealthCheckModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
