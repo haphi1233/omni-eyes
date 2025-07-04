@@ -13,6 +13,7 @@ import { CreatePhimmoiDto } from "./dto/create-phimmoi.dto";
 import { UpdatePhimmoiDto } from "./dto/update-phimmoi.dto";
 import { JwtAuthGuard, UserDto } from "@app/common";
 import { CurrentUser } from "@app/common";
+import { Roles } from "@app/common/decorator/roles.decorator";
 
 @Controller("phimmoi")
 export class PhimmoiController {
@@ -31,6 +32,8 @@ export class PhimmoiController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
+  @Roles("Admin")
   findAll() {
     return this.phimmoiService.findAll();
   }
@@ -47,6 +50,7 @@ export class PhimmoiController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Roles("Admin", "Manager")
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.phimmoiService.remove(id);

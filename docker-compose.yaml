@@ -18,11 +18,12 @@ services:
       context: .
       dockerfile: ./apps/phimmoi/Dockerfile
       target: development
-    command: pnpm start:dev phimmoi
+    command: pnpm start:debug phimmoi
     env_file:
       - ./apps/phimmoi/.env
     ports:
       - "3003:3003"
+      - "9229:9229"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
