@@ -1,6 +1,6 @@
 import { UserService } from "./user/user.service";
 import { Injectable } from "@nestjs/common";
-import { UserDocument } from "./user/schema/user.schema";
+import { User } from "./user/entity/user.entity";
 import { JwtService } from "@nestjs/jwt";
 import { Response } from "express";
 import { ConfigService } from "@nestjs/config";
@@ -10,8 +10,8 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
   ) {}
-  async login(user: UserDocument, response: Response) {
-    const payload = { userId: user._id.toHexString() }; // Thay đổi payload thành object
+  async login(user: User, response: Response) {
+    const payload = { userId: user.id }; // Thay đổi payload thành object
 
     const expires = new Date();
     const expiresInSeconds = this.configService.getOrThrow("JWT_EXPIRES_IN");

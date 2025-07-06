@@ -4,7 +4,7 @@ import { IsString, IsNotEmpty } from 'class-validator';
 export class CreateAreaDto {
   @IsString()
   @IsNotEmpty()
-  areaName: string;
+  name: string;
 
   @IsString()
   description: string;

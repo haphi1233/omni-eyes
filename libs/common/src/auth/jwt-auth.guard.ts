@@ -37,7 +37,7 @@ export class JwtAuthGuard implements CanActivate {
             "roles",
             context.getHandler(),
           );
-          if (roles && !roles.includes(res.roles[0])) {
+          if (roles && !roles.includes(res.roles[0].name)) {
             throw new UnauthorizedException();
           }
 

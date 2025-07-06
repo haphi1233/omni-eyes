@@ -1,7 +1,10 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
-export class GetUserDto {
+export class RoleDTO {
   @IsNumber()
-  @IsNotEmpty()
   id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  name: string;
 }

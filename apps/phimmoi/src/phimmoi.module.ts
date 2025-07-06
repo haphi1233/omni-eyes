@@ -1,6 +1,7 @@
 import {
   AUTH_SERVICE,
   DatabaseModule,
+  HealthCheckModule,
   LoggerModule,
   NOTIFICATION_SERVICE,
 } from "@app/common";
@@ -8,22 +9,18 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import * as Joi from "joi";
+import { Phimmoi } from "./entity/phimmoi.entity";
 import { PhimmoiController } from "./phimmoi.controller";
 import { PhimmoiRepository } from "./phimmoi.repository";
 import { PhimmoiService } from "./phimmoi.service";
-import { PhimmoiDocument, PhimmoiSchema } from "./shcema/phimmoi.schema";
-import { HealthCheckModule } from "@app/common";
 @Module({
   imports: [
     HealthCheckModule,
     DatabaseModule,
-    DatabaseModule.forFeature([
-      { name: PhimmoiDocument.name, schema: PhimmoiSchema },
-    ]),
+    DatabaseModule.forFeature([Phimmoi]),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        MONGO_URI: Joi.string().required(),
         AUTH_HOST: Joi.string().required(),
         AUTH_PORT: Joi.number().required(),
         NOTIFICATIONS_HOST: Joi.string().required(),

@@ -39,20 +39,20 @@ export class PhimmoiController {
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
+  findOne(@Param("id") id: number) {
     return this.phimmoiService.findOne(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updatePhimmoiDto: UpdatePhimmoiDto) {
+  update(@Param("id") id: number, @Body() updatePhimmoiDto: UpdatePhimmoiDto) {
     return this.phimmoiService.update(id, updatePhimmoiDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Roles("Admin", "Manager")
   @Delete(":id")
-  remove(@Param("id") id: string) {
+  remove(@Param("id") id: number) {
     return this.phimmoiService.remove(id);
   }
 }

@@ -5,18 +5,23 @@ import {
   UnprocessableEntityException,
 } from "@nestjs/common";
 import { UserRepository } from "./user.repository";
-import { CreateUserDto } from "./dto/user.dto";
+import { CreateUserDto } from "./dto/create-user.dto";
 import * as bcrypt from "bcryptjs";
+import { User } from "./entity/user.entity";
+import { Role } from "./entity/role.entity";
+import { RoleDTO } from "./dto/role.dto";
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async createUser(user: CreateUserDto) {
     await this.validateCreateUser(user);
-    return this.userRepository.create({
+    const newUser = new User({
       ...user,
       password: await bcrypt.hash(user.password, 10),
+      roles: user.roles.map((role) => new Role(role)),
     });
+    return this.userRepository.create(newUser);
   }
 
   async validateCreateUser(user: CreateUserDto) {
@@ -38,6 +43,6 @@ export class UserService {
   }
 
   async getUser(getUserDto: GetUserDto) {
-    return this.userRepository.findOne(getUserDto);
+    return this.userRepository.findOne({ id: getUserDto.id });
   }
 }

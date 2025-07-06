@@ -5,14 +5,12 @@ import * as Joi from "joi";
 import { AreaController } from "./area.controller";
 import { AreaRepository } from "./area.repository";
 import { AreaService } from "./area.service";
-import { AreaDocument, AreaSchema } from "./schema/area.schema";
+import { Area } from "./entity/area.entity";
 
 @Module({
   imports: [
     DatabaseModule,
-    DatabaseModule.forFeature([
-      { name: AreaDocument.name, schema: AreaSchema },
-    ]),
+    DatabaseModule.forFeature([Area]),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({

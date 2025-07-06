@@ -4,6 +4,7 @@ import { UpdatePhimmoiDto } from "./dto/update-phimmoi.dto";
 import { PhimmoiRepository } from "./phimmoi.repository";
 import { ClientProxy } from "@nestjs/microservices";
 import { EmailDto, NOTIFICATION_SERVICE } from "@app/common";
+import { Phimmoi } from "./entity/phimmoi.entity";
 
 @Injectable()
 export class PhimmoiService {
@@ -19,29 +20,30 @@ export class PhimmoiService {
       text: `The movie "${createPhimmoiDto.title}" has been successfully added to the system.`,
     };
     this.notificationService.emit("notification.create", emailDto);
-    return this.phimmoiRepository.create({
+    const phimmoi = new Phimmoi({
       ...createPhimmoiDto,
       timeStamp: new Date(),
       authorId: "1305",
     });
+    return this.phimmoiRepository.create(phimmoi);
   }
 
   findAll() {
     return this.phimmoiRepository.find({});
   }
 
-  findOne(_id: string) {
-    return this.phimmoiRepository.findOne({ _id });
+  findOne(id: number) {
+    return this.phimmoiRepository.findOne({ id });
   }
 
-  update(_id: string, updatePhimmoiDto: UpdatePhimmoiDto) {
+  update(id: number, updatePhimmoiDto: UpdatePhimmoiDto) {
     return this.phimmoiRepository.findOneAndUpdate(
-      { _id },
-      { $set: updatePhimmoiDto },
+      { id: +id },
+      updatePhimmoiDto,
     );
   }
 
-  remove(_id: string) {
-    return this.phimmoiRepository.findAndDelete({ _id });
+  remove(id: number) {
+    return this.phimmoiRepository.findAndDelete({ id });
   }
 }

@@ -6,16 +6,20 @@ import {
   IsOptional,
   IsStrongPassword,
 } from "class-validator";
-
+import { RoleDTO } from "./role.dto";
+import { Type } from "class-transformer";
 @Injectable()
 export class CreateUserDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;
+
   @IsStrongPassword()
   @IsNotEmpty()
   password: string;
+
   @IsArray()
   @IsOptional()
-  roles: string[];
+  @Type(() => RoleDTO)
+  roles: RoleDTO[];
 }

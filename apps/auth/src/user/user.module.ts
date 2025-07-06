@@ -1,16 +1,12 @@
+import { DatabaseModule } from "@app/common";
 import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { UserRepository } from "./user.repository";
-import { DatabaseModule, LoggerModule } from "@app/common";
-import { UserDocument, UserSchema } from "./schema/user.schema";
+import { Role } from "./entity/role.entity";
+import { User } from "./entity/user.entity";
 import { UserController } from "./user.controller";
+import { UserRepository } from "./user.repository";
+import { UserService } from "./user.service";
 @Module({
-  imports: [
-    DatabaseModule,
-    DatabaseModule.forFeature([
-      { name: UserDocument.name, schema: UserSchema },
-    ]),
-  ],
+  imports: [DatabaseModule, DatabaseModule.forFeature([User, Role])],
   controllers: [UserController],
   providers: [UserService, UserRepository],
   exports: [UserService],

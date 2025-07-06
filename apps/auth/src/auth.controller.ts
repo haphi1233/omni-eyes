@@ -5,7 +5,7 @@ import { AuthService } from "./auth.service";
 import { JwtAuthGuard } from "./guards/jwt.guards";
 import { LocalGuard } from "./guards/local.guards";
 import { CurrentUser } from "../../../libs/common/src/decorator/current-user.decorator";
-import { UserDocument } from "./user/schema/user.schema";
+import { User } from "./user/entity/user.entity";
 
 @Controller("auth")
 export class AuthController {
@@ -14,7 +14,7 @@ export class AuthController {
   @UseGuards(LocalGuard)
   @Post("login")
   async login(
-    @CurrentUser() user: UserDocument,
+    @CurrentUser() user: User,
     @Res({ passthrough: true }) response: Response,
   ) {
     const jwt = await this.authService.login(user, response);

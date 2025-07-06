@@ -67,8 +67,10 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
       - /usr/src/app/apps/area/node_modules
-  mongo:
-    logging:
-      driver: "none"
-    command: mongod --quiet
-    image: mongo:latest
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+      
