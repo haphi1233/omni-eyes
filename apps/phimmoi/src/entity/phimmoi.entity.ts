@@ -1,7 +1,7 @@
 import { AbstractEntity } from "@app/common";
 import { Column, Entity } from "typeorm";
 
-@Entity({name: 'phimmoi'})
+@Entity()
 export class Phimmoi extends AbstractEntity<Phimmoi>  {
   @Column()
   timeStamp: Date;

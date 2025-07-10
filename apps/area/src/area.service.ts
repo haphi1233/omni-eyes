@@ -8,11 +8,8 @@ import { Area } from './entity/area.entity';
 export class AreaService {
   constructor(private readonly areaRepository: AreaRepository) {}
   
-  async create(createAreaDto: CreateAreaDto) {
-    const area = new Area({
-      name: createAreaDto.name,
-      description: createAreaDto.description
-    });
+  create(createAreaDto: CreateAreaDto) {
+    const area = new Area(createAreaDto);
     return this.areaRepository.create(area);
   }
 

@@ -6,8 +6,6 @@ import {
   IsOptional,
   IsStrongPassword,
 } from "class-validator";
-import { RoleDTO } from "./role.dto";
-import { Type } from "class-transformer";
 @Injectable()
 export class CreateUserDto {
   @IsEmail()
@@ -20,6 +18,5 @@ export class CreateUserDto {
 
   @IsArray()
   @IsOptional()
-  @Type(() => RoleDTO)
-  roles: RoleDTO[];
+  roles: string[];
 }

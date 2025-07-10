@@ -4,9 +4,10 @@ services:
       context: .
       dockerfile: ./apps/auth/Dockerfile
       target: development
-    command: pnpm start:dev auth
+    command: pnpm start:debug auth
     ports:
       - "3001:3001"
+      - "9229:9229"
     env_file:
       - ./apps/auth/.env
     volumes:
@@ -23,7 +24,7 @@ services:
       - ./apps/phimmoi/.env
     ports:
       - "3003:3003"
-      - "9229:9229"
+      - "9235:9229"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -34,7 +35,7 @@ services:
       context: .
       dockerfile: ./apps/payments/Dockerfile
       target: development
-    command: pnpm start:dev payments
+    command: pnpm start:debug payments
     env_file:
       - ./apps/payments/.env
     volumes:
@@ -46,9 +47,11 @@ services:
       context: .
       dockerfile: ./apps/notifications/Dockerfile
       target: development
-    command: pnpm start:dev notifications
+    command: pnpm start:debug notifications
     env_file:
       - ./apps/notifications/.env
+    ports:
+      - "9232:9229"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -58,9 +61,10 @@ services:
       context: .
       dockerfile: ./apps/area/Dockerfile
       target: development
-    command: pnpm start:dev area
+    command: pnpm start:debug area
     ports:
       - "3005:3005"
+      - "9231:9229"
     env_file:
       - ./apps/area/.env
     volumes:

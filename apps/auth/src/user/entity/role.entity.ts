@@ -1,8 +1,8 @@
 import { AbstractEntity } from "@app/common";
 import { Column, Entity } from "typeorm";
 
-@Entity({ name: "role" })
+@Entity()
 export class Role extends AbstractEntity<Role> {
-  @Column()
+  @Column({ default: "USER" })
   name: string;
 }

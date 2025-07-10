@@ -15,7 +15,6 @@ import { Area } from "./entity/area.entity";
       isGlobal: true,
       validationSchema: Joi.object({
         HTTP_PORT: Joi.number().required(),
-        MONGO_URI: Joi.string().required(),
       }),
     }),
     LoggerModule,

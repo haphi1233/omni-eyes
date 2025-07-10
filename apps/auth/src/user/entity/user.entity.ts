@@ -2,7 +2,7 @@ import { AbstractEntity } from "@app/common";
 import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
 import { Role } from "./role.entity";
 
-@Entity({ name: "user" })
+@Entity()
 export class User extends AbstractEntity<User> {
   @Column()
   email: string;
@@ -10,7 +10,7 @@ export class User extends AbstractEntity<User> {
   @Column()
   password: string;
 
-  @ManyToMany(() => Role)
+  @ManyToMany(() => Role, {cascade: true})
   @JoinTable()
   roles: Role[];
 }

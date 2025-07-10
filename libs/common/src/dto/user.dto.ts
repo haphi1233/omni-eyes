@@ -20,5 +20,6 @@ export class UserDto {
   @IsArray()
   role: string[];
   @IsString()
-  _id: string;
+  @IsOptional()
+  id: string;
 }

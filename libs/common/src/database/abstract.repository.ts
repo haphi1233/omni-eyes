@@ -4,10 +4,10 @@ import { AbstractEntity } from "./abstract.entity";
 import {
   DeepPartial,
   EntityManager,
+  FindOptionsRelations,
   FindOptionsWhere,
   Repository,
 } from "typeorm";
-import { object } from "joi";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
 
 /**
@@ -27,12 +27,14 @@ export abstract class AbstractRepository<T extends AbstractEntity<T>> {
   ) {}
 
   async create(entity: T): Promise<T> {
-    const newEntity = this.entityRepository.create(entity);
-    return await this.entityManager.save(newEntity);
+    return await this.entityManager.save(entity);
   }
 
-  async findOne(where: FindOptionsWhere<T>): Promise<T> {
-    const entity = await this.entityRepository.findOne({ where });
+  async findOne(
+    where: FindOptionsWhere<T>,
+    relations?: FindOptionsRelations<T>,
+  ): Promise<T> {
+    const entity = await this.entityRepository.findOne({ where, relations });
 
     if (!entity) {
       this.logger.warn("Entity not found with where: ", where);

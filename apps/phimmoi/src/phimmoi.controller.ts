@@ -27,7 +27,7 @@ export class PhimmoiController {
   ) {
     return this.phimmoiService.create({
       ...createPhimmoiDto,
-      authorId: user._id,
+      authorId: user.id,
     });
   }
 

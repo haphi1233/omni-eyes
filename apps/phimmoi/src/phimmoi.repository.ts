@@ -9,7 +9,7 @@ import { Phimmoi } from "./entity/phimmoi.entity";
 export class PhimmoiRepository extends AbstractRepository<Phimmoi> {
   protected readonly logger = new Logger(PhimmoiRepository.name);
   constructor(
-    @InjectRepository(PhimmoiRepository)
+    @InjectRepository(Phimmoi)
     entityRepository: Repository<Phimmoi>,
     entityManager: EntityManager,
   ) {
